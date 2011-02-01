@@ -26,9 +26,9 @@ $.fx.prototype.custom = function( from, to, unit ) {
 	t.elem = this.elem;
 
 	if ( t() && jQuery.timers.push(t) && !timerId ) {
-		jQuery.support.requestAnimationFrame ?
-			window[jQuery.support.requestAnimationFrame](fx.tick):
-			timerId = setInterval(fx.tick, fx.interval);
+		timerId = jQuery.support.requestAnimationFrame ?
+			!window[jQuery.support.requestAnimationFrame](fx.tick):
+			setInterval(fx.tick, fx.interval);
 	}
 };
 
