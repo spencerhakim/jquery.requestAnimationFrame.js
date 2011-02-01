@@ -26,25 +26,17 @@ $.fx.prototype.custom = function( from, to, unit ) {
 	t.elem = this.elem;
 
 	if ( t() && jQuery.timers.push(t) && !timerId ) {
-		timerId = jQuery.support.requestAnimationFrame ?
-			!window[jQuery.support.requestAnimationFrame](fx.tick):
-			setInterval(fx.tick, fx.interval);
-	}
-};
-
-$.fx.tick = function() {
-	var timers = jQuery.timers;
-
-	for ( var i = 0; i < timers.length; i++ ) {
-		if ( !timers[i]() ) {
-			timers.splice(i--, 1);
-		}
-	}
-
-	if ( !timers.length ) {
-		jQuery.fx.stop();
-	} else if (jQuery.support.requestAnimationFrame && timerId) {
-		window[jQuery.support.requestAnimationFrame](jQuery.fx.tick);
+		if ( jQuery.support.requestAnimationFrame ) {
+      timerId = true;
+      (function raf() {
+        if (timerId) {
+          window[jQuery.support.requestAnimationFrame](raf);
+        }
+        fx.tick();
+      })();
+    } else {
+      timerId = setInterval(fx.tick, fx.interval);
+    }
 	}
 };
 
