@@ -1,8 +1,8 @@
 (function($, window) {
 
-$.support.requestAnimationFrame = mozRequestAnimationFrame ?
+$.support.requestAnimationFrame = window.mozRequestAnimationFrame ?
 	'mozRequestAnimationFrame' :
-	webkitRequestAnimationFrame ?
+	window.webkitRequestAnimationFrame ?
 		'webkitRequestAnimationFrame' :
 		false;
 
