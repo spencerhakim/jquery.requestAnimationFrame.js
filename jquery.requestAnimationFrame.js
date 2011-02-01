@@ -43,7 +43,7 @@ $.fx.tick = function() {
 
 	if ( !timers.length ) {
 		jQuery.fx.stop();
-	} else if (jQuery.support.requestAnimationFrame) {
+	} else if (jQuery.support.requestAnimationFrame && timerId) {
 		window[jQuery.support.requestAnimationFrame](jQuery.fx.tick);
 	}
 };
