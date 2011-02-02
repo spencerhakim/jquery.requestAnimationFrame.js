@@ -27,16 +27,16 @@ $.fx.prototype.custom = function( from, to, unit ) {
 
 	if ( t() && jQuery.timers.push(t) && !timerId ) {
 		if ( jQuery.support.requestAnimationFrame ) {
-      timerId = true;
-      (function raf() {
-        if (timerId) {
-          window[jQuery.support.requestAnimationFrame](raf);
-        }
-        fx.tick();
-      })();
-    } else {
-      timerId = setInterval(fx.tick, fx.interval);
-    }
+			timerId = true;
+			(function raf() {
+				if (timerId) {
+					window[jQuery.support.requestAnimationFrame](raf);
+				}
+				fx.tick();
+			})();
+		} else {
+			timerId = setInterval(fx.tick, fx.interval);
+		}
 	}
 };
 
