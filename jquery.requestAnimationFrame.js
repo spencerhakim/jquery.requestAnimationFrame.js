@@ -26,17 +26,16 @@ $.fx.prototype.custom = function( from, to, unit ) {
 	t.elem = this.elem;
 
 	if ( t() && jQuery.timers.push(t) && !timerId ) {
-		if ( jQuery.support.requestAnimationFrame ) {
-			timerId = true;
-			(function raf() {
+		// Use requestAnimationFrame instead of setInterval if available
+		( timerId = jQuery.support.requestAnimationFrame ) ?
+			window[timerId](function raf() {
+				// timerId will be true as long as the animation hasn't been stopped
 				if (timerId) {
-					window[jQuery.support.requestAnimationFrame](raf);
+					window[timerId](raf);
+					fx.tick();
 				}
-				fx.tick();
-			})();
-		} else {
+			}):
 			timerId = setInterval(fx.tick, fx.interval);
-		}
 	}
 };
 
